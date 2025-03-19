@@ -2,6 +2,8 @@ package com.example.medcloud.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,19 +23,11 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name is mandatory")
     private String name;
-
-    @NotNull(message = "Birth date is mandatory")
-    @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
-
-    @NotBlank(message = "Email is mandatory")
-    @Email(message = "Email should be valid")
-    @Column(unique = true)
     private String email;
 
     @Embedded
-    @NotNull
     private Address address;
 }
+
