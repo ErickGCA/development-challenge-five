@@ -1,4 +1,4 @@
-package com.example.medcloud.controller; // 👈 Verificar se o pacote está correto
+package com.example.medcloud.controller;
 
 import com.example.medcloud.dto.PatientRequest;
 import com.example.medcloud.dto.PatientResponse;

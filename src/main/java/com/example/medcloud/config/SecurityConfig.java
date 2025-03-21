@@ -11,11 +11,11 @@ public class SecurityConfig {
 
     public SecurityConfig(@Value("${app.api.key}") String validApiKey) {
         this.validApiKey = validApiKey;
-        System.out.println("API Key esperada: " + this.validApiKey); // 🔍 Verifica se a API Key está sendo carregada
+        System.out.println("API Key esperada: " + this.validApiKey); 
     }
 
     public void validateApiKey(String apiKey) {
-        System.out.println("API Key recebida: " + apiKey); // 🔍 Verifica a API Key recebida
+        System.out.println("API Key recebida: " + apiKey); 
         if (!validApiKey.equals(apiKey)) {
             throw new InvalidAPIKeyException("Invalid API Key. Use: " + validApiKey);
         }
