@@ -1,10 +1,9 @@
 package com.example.medcloud.repository;
 
-import java.util.Optional;
-
+import com.example.medcloud.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.medcloud.model.Patient; // Corrigido o caminho da importação
+import java.util.Optional;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     Optional<Patient> findByEmail(String email);

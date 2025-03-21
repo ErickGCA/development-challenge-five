@@ -1,23 +1,23 @@
 package com.example.medcloud.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.web.SecurityFilterChain;
+import com.example.medcloud.exception.InvalidAPIKeyException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class SecurityConfig {
+    
+    private final String validApiKey;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable) // Desabilita CSRF para testes
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/patients/**").permitAll() // Permite acesso sem autenticação
-                        .anyRequest().authenticated()
-                );
+    public SecurityConfig(@Value("${app.api.key}") String validApiKey) {
+        this.validApiKey = validApiKey;
+        System.out.println("API Key esperada: " + this.validApiKey); // 🔍 Verifica se a API Key está sendo carregada
+    }
 
-        return http.build();
+    public void validateApiKey(String apiKey) {
+        System.out.println("API Key recebida: " + apiKey); // 🔍 Verifica a API Key recebida
+        if (!validApiKey.equals(apiKey)) {
+            throw new InvalidAPIKeyException("Invalid API Key. Use: " + validApiKey);
+        }
     }
 }
