@@ -15,6 +15,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PatientRequest {
+
+        private Long id;
+        
         @NotBlank(message = "Name is required.")
         @Size(min = 2, max = 100, message = "Name cannot be longer than 100 characters.")
         private String name;

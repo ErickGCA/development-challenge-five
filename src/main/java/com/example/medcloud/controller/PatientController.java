@@ -34,4 +34,24 @@ public class PatientController {
         securityConfig.validateApiKey(apiKey);
         return ResponseEntity.ok(patientService.getPatientByEmail(email));
     }
+
+    @PutMapping("/{id}")
+public ResponseEntity<PatientResponse> updatePatient(
+        @RequestHeader("X-API-KEY") String apiKey,
+        @PathVariable Long id,
+        @Valid @RequestBody PatientRequest request) {
+
+    securityConfig.validateApiKey(apiKey);
+    return ResponseEntity.ok(patientService.updatePatient(id, request));
+}
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePatient(
+            @RequestHeader("X-API-KEY") String apiKey,
+            @PathVariable Long id) {
+
+        securityConfig.validateApiKey(apiKey);
+        patientService.deletePatient(id);
+        return ResponseEntity.noContent().build();
+}
 }

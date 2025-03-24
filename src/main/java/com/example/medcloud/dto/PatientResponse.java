@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PatientResponse {
+    private Long id;
     private String name;
     private LocalDate birthDate;
     private String email;

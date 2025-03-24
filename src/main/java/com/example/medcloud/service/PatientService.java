@@ -47,4 +47,29 @@ public class PatientService {
         response.setAddress(patient.getAddress());
         return response;
     }
+    public PatientResponse updatePatient(Long id, PatientRequest request) {
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + id));
+    
+        patient.setName(request.getName());
+        patient.setBirthDate(request.getBirthDate());
+        patient.setEmail(request.getEmail());
+    
+        Address address = new Address();
+        address.setStreet(request.getAddress().getStreet());
+        address.setCity(request.getAddress().getCity());
+        address.setState(request.getAddress().getState());
+        address.setZipCode(request.getAddress().getZipCode());
+    
+        patient.setAddress(address);
+    
+        return mapToResponse(patientRepository.save(patient));
+    }
+    
+    public void deletePatient(Long id) {
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + id));
+        patientRepository.delete(patient);
+    }
+    
 }
